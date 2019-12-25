@@ -31,12 +31,13 @@
 .description .description-header {
     font-weight: 900;
     color: white;
-    font-size: 24px;
+    font-size: 16pt;
     margin-bottom: 0;
 }
 
 .description .description-footer {
-    color:white
+    color:white;
+    font-size: 14pt;
 }
 
 /* Kanan */
@@ -81,6 +82,7 @@
     border-radius: 10px;
     margin-top: 30px;
     margin-bottom: 30px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   }
   
   .button-login:hover {
@@ -100,6 +102,9 @@
     font-weight: bold;
     font-size: 18px;
     border-radius: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    width: 250px;
+    align-self: center;
   }
   
   .button-register:hover {

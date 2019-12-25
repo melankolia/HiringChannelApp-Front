@@ -52,7 +52,7 @@ class Login extends Component {
                   <button className='button-login' size="lg">
                     Login
                   </button>
-                  <button className='button-register' size="lg" 
+                  <button className='button-register-form-login' size="lg" 
                     onClick={() => {
                       //login dulu trus navigasi
                       console.log(this.props)
