@@ -7,7 +7,7 @@ import Grid from '@material-ui/core/Grid';
 import React, { Component } from 'react';
 import '../Styles/Register.css';
 
-class Login extends Component {
+class Register extends Component {
 
   state = {
       
@@ -33,23 +33,31 @@ class Login extends Component {
 
         <Grid item xs={12} sm={5}>
           <div className='right'>
-            <p className='textlogin'>
+            <p className='textregister'>
                 Register
             </p>
               <div className='form'>
                 <Form>
-                  <Form.Group controlId="formBasicEmail">
-                    <Form.Label className='inputUsername'>Username</Form.Label>
+                  <Form.Group> 
+                    <Form.Label className='label-username'>Username</Form.Label>
                     <Form.Control type="text" placeholder="Enter username" />
-                  </Form.Group>
+                        <br/>
+                    <Form.Label className='label-name'>Name</Form.Label>
+                    <Form.Control type="text" placeholder="Enter name" />
+                        <br/>
+                    <Form.Label className='label-password'>Password</Form.Label>
+                    <Form.Control type="text" placeholder="Enter password" />
+                        <br/>
+                    <Form.Label className='label-role'>Role</Form.Label>
+                    <Form.Control as="select">
+                        <option>Engineer</option>
+                        <option>Company</option>
+                    </Form.Control>
 
-                  <Form.Group controlId="formBasicPassword">
-                    <Form.Label className='inputPassword'>Password</Form.Label>
-                    <Form.Control type="password" placeholder="Enter password" />
                   </Form.Group> 
                   <br/>
                   <button className='button-register' size="lg">
-                    Register
+                    Create an Account
                   </button>
                   <br/>
                   <Link to = '/login'>
@@ -66,4 +74,4 @@ class Login extends Component {
   
 }
 
-export default Login;
+export default Register;

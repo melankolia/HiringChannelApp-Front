@@ -46,7 +46,7 @@
     height: 100vh;
     border-radius: 10px;
 }
-.textlogin{
+.textregister{
     display: flex;
     align-self: flex-start;
     width: 401px;
@@ -58,7 +58,7 @@
     font-size: 24px;
     line-height: 62px;
     color: #000000;
-    margin-bottom: 100px;
+    margin-bottom: 40px;
 }
 
 .right form{
@@ -66,13 +66,7 @@
     flex-direction: column;
     padding:0px 50px;
 }
-.inputUsername{
-    font-weight: bold;
-}
 
-.inputPassword{
-    font-weight: bold;
-}
 .button-login {
     -webkit-transition-duration: 0.4s; 
     transition-duration: 0.4s;
@@ -122,5 +116,18 @@
     color:black;
     font-size: 14px;
     text-align: center;
+    font-weight: bold;
+}
+
+.label-username{
+    font-weight: bold;
+}
+.label-name{
+    font-weight: bold;
+}
+.label-password{
+    font-weight: bold;
+}
+.label-role{
     font-weight: bold;
 }

@@ -1,5 +1,4 @@
 import {Form} from 'react-bootstrap';
-import {Link} from 'react-router-dom';
 import arkWhite from '../Images/ark-white1.png';
 import piclogin from '../Images/imageleftlogin.png';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -45,14 +44,20 @@ class Login extends Component {
 
                   <Form.Group controlId="formBasicPassword">
                     <Form.Label className='inputPassword'>Password</Form.Label>
-                    <Form.Control type="password" placeholder="Enter password" />
+                    <Form.Control type="text" placeholder="Enter password" />
                   </Form.Group> 
-                    <p className="forget">Forgot Password ?
+                    <p className="forget">
+                      Forgot Password ?
                     </p>
                   <button className='button-login' size="lg">
                     Login
                   </button>
-                  <button className='button-register' size="lg">
+                  <button className='button-register' size="lg" 
+                    onClick={() => {
+                      //login dulu trus navigasi
+                      console.log(this.props)
+                      this.props.history.push ('/register');
+                    }}>
                     Register
                   </button>
                 </Form>
