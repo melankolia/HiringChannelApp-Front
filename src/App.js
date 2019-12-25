@@ -1,4 +1,5 @@
 import {Navbar, Nav, Col, Row, Container, Form, FormControl, Button} from 'react-bootstrap';
+import {Link, Redirect} from 'react-router-dom'
 import Grid from '@material-ui/core/Grid';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { Component } from 'react';
@@ -12,8 +13,7 @@ class App extends Component {
 
   render() {
     return (
-      console.log("Home Page")
-  
+      <Redirect to='/login'/>
     );
   }
   

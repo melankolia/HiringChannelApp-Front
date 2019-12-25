@@ -1,10 +1,9 @@
 import {Form} from 'react-bootstrap';
-import {Link} from 'react-router-dom'
+import {Link} from 'react-router-dom';
 import arkWhite from '../Images/ark-white1.png';
 import piclogin from '../Images/imageleftlogin.png';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Grid from '@material-ui/core/Grid';
-// import TextField from '@material-ui/core/TextField';
 import React, { Component } from 'react';
 import '../Styles/Login.css';
 
@@ -16,11 +15,11 @@ class Login extends Component {
 
   render() {
     return (
-      <Grid container sm={12}>
+      <Grid container>
         <Grid item xs={12} sm={7}>
           <div className='left'>
-              <img className='arkawhite' src={arkWhite} />
-              <img className='piclogin'  src={piclogin}/>
+              <img className='arkawhite' src={arkWhite} alt='arkwhite'/>
+              <img className='piclogin'  src={piclogin} alt='piclogin'/>
               <div className="description">
                 <p className="description-header">
                   Hire expert freelancers for any job, online
@@ -37,7 +36,7 @@ class Login extends Component {
             <p className='textlogin'>
                 Login
             </p>
-              <div classname='form'>
+              <div className='form'>
                 <Form>
                   <Form.Group controlId="formBasicEmail">
                     <Form.Label className='inputUsername'>Username</Form.Label>
@@ -50,10 +49,10 @@ class Login extends Component {
                   </Form.Group> 
                     <p className="forget">Forgot Password ?
                     </p>
-                  <button className='button-login' size="lg" block>
+                  <button className='button-login' size="lg">
                     Login
                   </button>
-                  <button className='button-register' size="lg" block>
+                  <button className='button-register' size="lg">
                     Register
                   </button>
                 </Form>
