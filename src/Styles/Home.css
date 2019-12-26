@@ -69,6 +69,45 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: flex-start;
+    justify-content: center;
     margin: 25px;
+}
+.crud-engineer{
+    margin-left: 35px;
+    padding-top: 30px!important;
+    padding: 40px;
+    width: 30vw;
+    background-color: #DADADA;
+    border-radius: 20px;
+}
+.update-name-text{
+    font-size: 12pt;
+    margin-bottom: 0px;
+    color:black;
+    font-weight: bold;
+}
+.update-name-control{
+    margin-bottom: 10px;
+    width: 20vw;
+}
+
+.update-description-text{
+    font-size: 12pt;
+    margin-bottom: 0px;
+    color:black;
+    font-weight: bold;
+}
+.update-description-control{
+    margin-bottom: 10px;
+    width: 20vw;
+}
+.update-location-text{
+    font-size: 12pt;
+    margin-bottom: 0px;
+    color:black;
+    font-weight: bold;
+}
+.update-location-control{
+    margin-bottom: 40px;
+    width: 20vw;
 }

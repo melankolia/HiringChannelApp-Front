@@ -6,9 +6,6 @@ import star from '../Images/star.png';
 class Cards extends Component {
 
     state ={
-        nama:'Budi Setyawan',
-        description:'Frontend Developer',
-        skills:'NodeJS, React, ReactNative, ExpressJs',
         totalProject:'47',
         totalSuccessRate:'100%'
     }
