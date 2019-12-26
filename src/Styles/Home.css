@@ -20,24 +20,20 @@
     background-image: url('../Images/magnifying-glass.png'); 
     background-position: 5px 5px;
     background-repeat: no-repeat;
-    
+    outline:none;
 }
 
-.navbar-search[type=text]:focus {
-    width: 70vw;
-    border: 2px solid #ccc;
-}
-.nav-text{
+#nav-text{
     margin-left: 35px;
     font-weight: bold;
-    color: #000000;
+    color: #9B9B9B;
     font-size: 14pt;
 }
 .nav-avatar{
-    margin-left: 50px;
+    margin-left: 30px;
     width: 35px;
     height: 35px;
-    border-radius: 50%;
+    border-radius: 35px;
 
 }
 .nav-name{
@@ -64,4 +60,15 @@
     margin-left: 20px;
     width: 25px;
     height: 25px;
+}
+#nav-dropdown{
+    color: #000000;
+    font-weight: bold;
+}
+.card-container{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    margin: 25px;
 }
