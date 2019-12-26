@@ -1,4 +1,4 @@
-import {Form, Dropdown} from 'react-bootstrap';
+import {Form} from 'react-bootstrap';
 import arkWhite from '../Images/ark-white1.png';
 import piclogin from '../Images/imageleftlogin.png';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -14,6 +14,7 @@ constructor(){
     username:'',
     password:'',
     role:'',
+    token:'',
     message:''}
 }
 
@@ -24,16 +25,16 @@ constructor(){
     const data = {
       username:this.state.username,
       password:this.state.password,
-      role:this.state.role
+      role:this.state.role,
     }
-    const header = {
-      
-    }
+
     axios.post('http://localhost:8000/auth/login', data)
-    .then( res=>{
+    .then(res=>{
+      // console.log(res.data)
         if(res.data.status === 200){
             this.setState({
-              message: 'Login success'
+              message: 'Login success',
+              token:res.data.token
           })
             // console.log(this.state)
             alert('Login success')
@@ -54,18 +55,20 @@ constructor(){
     })
   }
 
-  componentDidUpdate = () => {
+  componentDidUpdate = (res) => {
     //dijalankan setelah ada data (state dan/atau props) yang berubah
     if (this.state.message === "Login success"){
+      // console.log(this.state)
       this.props.history.push ('/home')
     }
     else if (this.state.message === "Login Failed!"){
       this.props.history.push ('/login')
     }
+    // console.log(res)
   };
 
   render() {
-    console.log(this.state)
+    // console.log(this.state)
     return (
       <Grid container>
         <Grid item xs={12} sm={7}>

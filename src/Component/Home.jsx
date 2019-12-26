@@ -7,19 +7,25 @@ import Chat from '../Images/chat.png'
 import Bell from '../Images/bell.png'
 import {Link} from 'react-router-dom';
 import Cards from './Card.jsx';
+import axios from 'axios';
 
 class Home extends Component {
 
   state = {
       nama:'Ageng Setyo',
-      engineers:[['Budi Setyawan'],['Budi Herianto'],['Budi Suseno'],
-           ['Budi Sutiyoso'],['Budi Jembot'],['Budi Wakwaw']],
-      skills:[['NodeJS, React, ReactNative, ExpressJs'],['ReactNative, ExpressJs'],
-              ['ReactNative'],['React'],['NodeJS, React, ReactNative, ExpressJs'],
-              ['ReactNative']],
-      description:[['Frontend Developer'],['Frontend Developer'],['Frontend Developer'],
-                  ['Frontend Developer'],['Frontend Developer'],['Frontend Developer']]
+      engineersBeta: [],
   }
+  componentDidMount = () => {
+    //dijalankan setelah ada data (state dan/atau props) yang berubah
+    axios.get('http://localhost:8000/api/engineer')
+    // .then(item => console.log(item.data.response))
+    .then(res =>  {
+      this.setState({engineersBeta : res.data.data.response})
+      // console.log(res.data.data.response)
+      // console.log(this.state.engineersBeta)
+    })
+    .catch(err => console.log(err));
+  };
 
   render() {
     const {nama} = this.state
@@ -56,8 +62,8 @@ class Home extends Component {
 
       </Navbar>
       <div className='card-container'>
-          {this.state.engineers.map((_,idx)=> <Cards nama={this.state.engineers[idx]} 
-          skills={this.state.skills[idx]} description={this.state.description[idx]} />)
+          {this.state.engineersBeta.map((_,idx)=> <Cards key={idx} nama={this.state.engineersBeta[idx].Name} 
+          skills={this.state.engineersBeta[idx].Skills} description={this.state.engineersBeta[idx].Description} />)
           }
       </div>
     </div>

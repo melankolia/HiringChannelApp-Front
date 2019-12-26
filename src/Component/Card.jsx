@@ -25,11 +25,11 @@ render(){
                     <p className='text-description'>{this.props.description}
                             </p>
                     <div className = 'project-success'>
-                        <img src={check}/>
+                        <img src={check} alt='check-ico'/>
                         <p className ='text-project'>
                             {this.state.totalProject} Project
                         </p>
-                        <img src={star} className='img-project'/>
+                        <img src={star} alt='star-ico' className='img-project'/>
                         <p className ='text-success'>
                             {this.state.totalSuccessRate} Success Rate
                         </p>

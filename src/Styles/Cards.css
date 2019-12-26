@@ -2,10 +2,12 @@
     display: flex;
     background-image: url('../Images/yucel.png');
     border-radius: 20px;
-    width: 200px;
+    width: 212px;
     height: 350px;
     margin:1px;
     margin-bottom: 5px;
+    background-size: auto;
+    background-repeat: no-repeat;
 }
 .overlay-card{
     display: flex;
