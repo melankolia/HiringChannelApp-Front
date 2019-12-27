@@ -32,10 +32,10 @@ render(){
                         </p>
                     </div>
                 </div>
+                
                 <p  className='text-card-skills'>
-                    Skills: {this.props.skills}
-                </p>
-
+                        Skills: {this.props.skills}
+                    </p> 
             </div>
         </div>
     )

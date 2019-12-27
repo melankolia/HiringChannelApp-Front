@@ -5,7 +5,7 @@ import Arka from '../Images/arka.png';
 import Avatar from '../Images/Avatar.png';
 import Chat from '../Images/chat.png'
 import Bell from '../Images/bell.png'
-import {Link} from 'react-router-dom';
+import {Link, Redirect} from 'react-router-dom';
 import Cards from './Card.jsx';
 import Profile from './Profile.jsx';
 import axios from 'axios';
@@ -19,62 +19,79 @@ class Home extends Component {
         toogleProfile:false,
         description:'',
         skills:'',
-        location:''
-        
+        location:'',
+        token:''        
     }
-    const url = ['http://localhost:8000/api/engineer/AidilFY',
-                'http://localhost:8000/api/engineer']
+ }
+
+  logout = e => {
+    localStorage.removeItem('token :')
+    this.setState({
+    engineersBeta: []});
+    this.props.history.push ('/login');
+
+    }
+  toogleProfileFun = e => {
+    this.setState({
+      toogleProfile:false
+    })
+  }
+
+  componentDidMount() {
+    console.log('Did Mount')
     let usernameLocal = localStorage.getItem('username :');
+    let token = localStorage.getItem('token :')
+    let role = localStorage.getItem('role :')
+
+    if (!token){
+      this.props.history.push('/login')
+    }
+    console.log('http://localhost:8000/api/' + role + '/' + usernameLocal)
     
+    const url = ['http://localhost:8000/api/' + role +'/' + usernameLocal ,
+                'http://localhost:8000/api/engineer']
+    
+    const config = {
+      headers: {'Authorization': "Bearer " + token,
+                'username': usernameLocal}
+    };
+    // console.log(config)
     // console.log("Constructor")
-    // axios.get(url[0])
-    // // .then(item => console.log(item.data.response))
-    // .then(res =>  {
-    //   this.setState({
-    //     nama:res.data[0].Name,
-    //     description:res.data[0].Description
-    //   })
-    // })
-    // .catch(err => console.log(err));
-    
-    axios.get(url[1])
+    axios.get(url[0],config)
     // .then(item => console.log(item.data.response))
     .then(res =>  {
-      console.log(res.data.data.response)
-      for (let i = 0; i < res.data.data.response.length; i++){
-        // console.log(res.data.data.response[i].Skills)
-        if (res.data.data.response[i].username === usernameLocal){
-          this.setState({
-            nama:res.data.data.response[i].Name,
-            description:res.data.data.response[i].Description,
-            skills:res.data.data.response[i].Skills,
-            location:res.data.data.response[i].Location
-          })
-        }
-      }
-      this.setState({engineersBeta : res.data.data.response})
+      // console.log(res.data[0].Skills)
+      // console.log(token)
+      console.log(res)
+      this.setState({
+        nama:res.data[0].Name,
+        description:res.data[0].Description,
+        location:res.data[0].Location,
+        skills:res.data[0].Skills,
+        role:role
+      })
+    })
+    
+    .catch(err => console.log(err));
+    
+    axios.get(url[1],config)
+    // .then(item => console.log(item.data.response))
+    .then(res =>  {
+      console.log(res)
       // console.log(res.data.data.response)
+      this.setState({engineersBeta : res.data.data.response})
+      //console.log(res.data.data.response)
       // console.log(this.state.engineersBeta)
     })
     .catch(err => console.log(err));
+    // console.log('constructor')
+    // console.log(this.state.engineersBeta)
 
   }
-
-  // componentDidMount = () => {
-  //   //dijalankan setelah ada data (state dan/atau props) yang berubah
-  //   axios.get('http://localhost:8000/api/engineer')
-  //   // .then(item => console.log(item.data.response))
-  //   .then(res =>  {
-  //     this.setState({engineersBeta : res.data.data.response})
-  //     // console.log(res.data.data.response)
-  //     // console.log(this.state.engineersBeta)
-  //   })
-  //   .catch(err => console.log(err));
-  // };
-
   render() {
-    // console.log('Render')
-    const {nama,description,skills} = this.state
+    const {nama,description,skills,role,location} = this.state
+    console.log('Render')
+
     return (
     <div className='container-home'>
       <Navbar className='navbar-style'>
@@ -86,11 +103,7 @@ class Home extends Component {
           </Navbar.Brand>
           <input className='navbar-search' type="text" name="search" placeholder="Search.."></input>
           <Link to = '/home'>
-            <Navbar.Text id='nav-text' onClick={e => {
-                      this.setState({
-                        toogleProfile:false
-                      });
-                    }}>
+            <Navbar.Text id='nav-text' onClick={e => this.toogleProfileFun(e)}>
               Home
             </Navbar.Text>
             </Link>
@@ -103,7 +116,8 @@ class Home extends Component {
                       });
                     }}>Profile</NavDropdown.Item>
           <NavDropdown.Divider/>
-              <NavDropdown.Item href="/login">Logout
+              <NavDropdown.Item onClick={e => {this.logout(e)
+                    }}>Logout
               </NavDropdown.Item>
          </NavDropdown>
           
@@ -117,7 +131,7 @@ class Home extends Component {
       <div className='card-container'>
           {!this.state.toogleProfile ? this.state.engineersBeta.map((_,idx)=> <Cards key={idx} nama={this.state.engineersBeta[idx].Name} 
           skills={this.state.engineersBeta[idx].Skills} description={this.state.engineersBeta[idx].Description} />)
-          : <Profile nama={nama} description={description} skills={skills}/>
+          : <Profile nama={nama} description={description} skills={skills} role={role} location={location}/>
           }
           {this.state.toogleProfile ?           
           <div className='crud-engineer'> 

@@ -59,9 +59,12 @@ constructor(){
     //dijalankan setelah ada data (state dan/atau props) yang berubah
     if (this.state.message === "Login success"){
       // console.log(this.state)
+     // console.log(this.state.username)
       localStorage.setItem('username :', this.state.username);
-      // console.log(this.state.username)
-      this.props.history.push ('/home')
+      localStorage.setItem('token :', this.state.token);
+      localStorage.setItem('role :', this.state.role)
+
+        this.props.history.push ('/home')
     }
     // else if (this.state.message === "Login Failed!"){
     //   this.setState({message:''})
