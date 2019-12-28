@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import '../Styles/CardCompany.css'
 import check from '../Images/check.png';
-import star from '../Images/star.png';
 
 class CardCompany extends Component {
 
@@ -11,8 +10,10 @@ class CardCompany extends Component {
     }
 
 render(){
+    let Background = [require('../Images/yucel.png'), require('../Images/luis.png'), require('../Images/alina.png'),require('../Images/craig.png'),require('../Images/lucas.png')]
+    let randomBack = Math.floor(Math.random() * 5)
     return(
-        <div className='card-style-company'>
+        <div className='card-style-company' style={{ backgroundImage: `url(${Background[randomBack]})` }}>
             
             <div className='overlay-card-company'>
                 <p className="text-card-company">

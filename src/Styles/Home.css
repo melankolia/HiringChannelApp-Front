@@ -70,7 +70,6 @@
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
-    margin: 25px;
 }
 .crud-engineer{
     margin-left: 35px;
@@ -108,6 +107,128 @@
     font-weight: bold;
 }
 .update-location-control{
+    margin-bottom: 10px;
+    width: 20vw;
+}
+.searching-type{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    justify-self: flex-end;
+    align-self: flex-end;
+    margin-top: 20px;
+    margin-bottom:10px;
+    margin-right:20px;
+    margin-left:10px;
+    border-radius: 10px;
+    height: 40px;
+    width: 100vw;
+    
+}
+.button-apply1{
+  align-self: center;
+  justify-self: center;
+  height: 100%;
+  width: 5%;
+  border-bottom-left-radius: 10px;
+  border-top-left-radius: 10px;
+  border-bottom-right-radius: 0px;
+  border-top-right-radius: 0px;
+  font-weight: bold;
+}
+.button-apply2{
+    align-self: center;
+    justify-self: center;
+    height: 100%;
+    width: 5%;
+    border-radius: 0px;
+    font-weight: bold;
+}
+
+.button-apply3{
+    align-self: center;
+    justify-self: center;
+    height: 100%;
+    width: 5%;
+    border-bottom-left-radius: 0px;
+    border-top-left-radius: 0px;
+    border-bottom-right-radius: 10px;
+    border-top-right-radius: 10px;
+    font-weight: bold;
+}
+.update-skills-text{
+    font-size: 12pt;
+    margin-bottom: 0px;
+    color:black;
+    font-weight: bold;
+}
+.update-skills-control{
     margin-bottom: 40px;
     width: 20vw;
+}
+.navbar-search-skill[type=text]{
+    width: 12%;
+    height: 100%;
+    -webkit-transition: width 0.4s step-end;
+    transition: width 0.4s ease-in-out;
+    background: #DADADA;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    box-sizing: border-box;
+    padding: 12px 20px 12px 40px;
+    background-image: url('../Images/magnifying-glass.png'); 
+    background-position: 5px 5px;
+    background-repeat: no-repeat;
+    outline:none;
+    margin-right: 10px;
+}
+.select-page{
+    width: 85px;
+    height: 100%;
+    margin-right: 10px;
+    border-radius: 10px;
+}
+.page-section{
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    justify-content: center;
+    width: 100%;
+    height: 70px;
+}
+.buttonpage{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+    width: 30px;
+    height: 30px;
+    margin:6px;
+    border-radius: 15px;
+    background-color: #DADADA;
+    border:2px solid #ccc;
+    color: black;
+    font-weight: bold;
+}
+.button-page{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+    width: 30px;
+    height: 30px;
+    margin:2px;
+    border-radius: 10px;
+    background-color: #DADADA;
+    border:2px solid #ccc;
+    color: black;
+    font-weight: bold;
+}
+.text-page{
+    margin: 0px;
+    margin-left: 4px;
+    margin-right: 4px;
+    align-self: center;
+    justify-self: center;
+    font-weight: bold;
 }

@@ -10,7 +10,6 @@ class Profile extends Component {
     }
 
     render(){
-        console.log('render')
         return(
             <div>
             {this.props.role === 'engineer' ? <Cards nama={this.props.nama} description={this.props.description} skills={this.props.skills}/>

@@ -30,7 +30,7 @@ constructor(){
 
     axios.post('http://localhost:8000/auth/login', data)
     .then(res=>{
-      // console.log(res.data)
+      console.log(res.data)
         if(res.data.status === 200){
             this.setState({
               message: 'Login success',
@@ -108,7 +108,7 @@ constructor(){
 
                   <Form.Group controlId="formBasicPassword">
                     <Form.Label className='inputPassword'>Password</Form.Label>
-                    <Form.Control type="text" placeholder="Enter password" 
+                    <Form.Control type="password" placeholder="Enter password" 
                     onChange={ e => this.setState({password:e.target.value})}/>
                   </Form.Group> 
                   <Form.Group>

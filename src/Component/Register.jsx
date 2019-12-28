@@ -60,8 +60,6 @@ register = e => {
   };
 
   render() {
-
-    // const {username, password, role, name} = this.state
     return (
       <Grid container>
         <Grid item xs={12} sm={7}>
@@ -96,7 +94,7 @@ register = e => {
                     onChange={ (e) => this.setState({name:e.target.value})}/>
                         <br/>
                     <Form.Label className='label-password'>Password</Form.Label>
-                    <Form.Control type="text" placeholder="Enter password" 
+                    <Form.Control type="password" placeholder="Enter password" 
                     onChange={ (e) => this.setState({password:e.target.value})}/>
                         <br/>
                     <Form.Label className='label-role'>Role</Form.Label>

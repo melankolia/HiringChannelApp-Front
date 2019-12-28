@@ -1,10 +1,10 @@
 .card-style{
     display: flex;
-    background-image: url('../Images/yucel.png');
+    /* background-image: url('../Images/yucel.png'); */
     border-radius: 20px;
-    width: 212px;
+    width: 200px;
     height: 350px;
-    margin:1px;
+    margin:6px;
     margin-bottom: 5px;
     background-size: auto;
     background-repeat: no-repeat;
