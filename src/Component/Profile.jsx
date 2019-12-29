@@ -11,7 +11,7 @@ class Profile extends Component {
 
     render(){
         return(
-            <div>
+            <div className='profile'>
             {this.props.role === 'engineer' ? <Cards nama={this.props.nama} description={this.props.description} skills={this.props.skills}/>
             : <CardCompany nama={this.props.nama} description={this.props.description} location={this.props.location}/>
             }

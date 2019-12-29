@@ -1,4 +1,6 @@
 import {Form} from 'react-bootstrap';
+import Swal from 'sweetalert2/dist/sweetalert2.js'
+import 'sweetalert2/src/sweetalert2.scss'
 import arkWhite from '../Images/ark-white1.png';
 import piclogin from '../Images/imageleftlogin.png';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -37,14 +39,22 @@ constructor(){
               token:res.data.token
           })
             // console.log(this.state)
-            alert('Login success')
+            Swal.fire({
+              icon: 'success',
+              title: 'Success',
+              text: 'Login Success',
+            })
         }
         else if (res.data.status === 'error'){
               this.setState({
                 message: 'Login Failed!'
             })
             // console.log(this.state)
-              alert('Login Failed!')
+            Swal.fire({
+              icon: 'error',
+              title: 'Fail',
+              text: 'Login Failed!',
+            })
         }
     })
     .catch(err=>{
@@ -63,8 +73,12 @@ constructor(){
       localStorage.setItem('username :', this.state.username);
       localStorage.setItem('token :', this.state.token);
       localStorage.setItem('role :', this.state.role)
-
+      if(this.state.role === 'company'){
         this.props.history.push ('/home')
+      }
+      else if (this.state.role === 'engineer'){
+        this.props.history.push('/engineer')
+      }
     }
     // else if (this.state.message === "Login Failed!"){
     //   this.setState({message:''})

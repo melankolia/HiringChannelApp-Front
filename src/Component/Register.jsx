@@ -1,5 +1,7 @@
 import {Form} from 'react-bootstrap';
 import {Link} from 'react-router-dom';
+import Swal from 'sweetalert2/dist/sweetalert2.js'
+import 'sweetalert2/src/sweetalert2.scss'
 import arkWhite from '../Images/ark-white1.png';
 import piclogin from '../Images/imageleftlogin.png';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -35,14 +37,22 @@ register = e => {
             message: 'Register success'
         })
           console.log(this.state)
-          alert('Register success')
+          Swal.fire({
+            icon: 'success',
+            title: 'Success',
+            text: 'Register Success',
+          })
       }
       else if (res.data.status === 'error'){
             this.setState({
               message: 'Register Failed!'
           })
           console.log(this.state)
-            alert('Register Failed!')
+            Swal.fire({
+              icon: 'error',
+              title: 'error',
+              text: 'Register Failed!',
+            })
       }
   })
   .catch(err=>{

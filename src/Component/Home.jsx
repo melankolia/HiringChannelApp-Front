@@ -1,5 +1,7 @@
 import {Navbar, NavDropdown,Form, Button} from 'react-bootstrap';
 import React, { Component } from 'react';
+import Swal from 'sweetalert2/dist/sweetalert2.js'
+import 'sweetalert2/src/sweetalert2.scss'
 import '../Styles/Home.css';
 import Arka from '../Images/arka.png';
 import Avatar from '../Images/Avatar.png';
@@ -17,6 +19,7 @@ class Home extends Component {
         id:'',
         nama:'',
         engineersBeta: [],
+        companyBeta: '',
         toggleProfile:false,
         description:'',
         skills:'',
@@ -72,6 +75,7 @@ class Home extends Component {
     .then(res =>  {
       // console.log(res.data[0].Skills)
       // console.log(token)
+      console.log(res.data)
       this.setState({
         id:res.data[0].id,
         nama:res.data[0].Name,
@@ -79,7 +83,8 @@ class Home extends Component {
         location:res.data[0].Location,
         skills:res.data[0].Skills,
         role:role,
-        currentPage:res.data[0].currentPage
+        currentPage:res.data[0].currentPage,
+        companyBeta:res.data
       })
       console.log("Ini State id: " + this.state.id)
     })
@@ -120,11 +125,11 @@ class Home extends Component {
     // .then(item => console.log(item.data.response))
     .then(res =>  {
       // console.log(res.data.data)
-      console.log(res.data.data.totalPage)
+      console.log(res.data.data.totalpage)
       this.setState({engineersBeta : res.data.data.response, 
         totalPage : res.data.data.totalpage,
         currentPage: res.data.data.currentPage})
-      console.log(res.data.data.totalPage)
+      console.log(res.data.data.totalpage)
       //console.log(res.data.data.response)
       // console.log(this.state.engineersBeta)
     })
@@ -171,7 +176,37 @@ class Home extends Component {
     })
     .catch(err => console.log(err));
   }
+  patchCompany(){
+    let usernameLocal = localStorage.getItem('username :');
+    let token = localStorage.getItem('token :');
+    const url = 'http://localhost:8000/api/company/'+ parseInt(this.state.id)
+    let data = {
+      Name: this.state.nama,
+      Description: this.state.description,
+      Location: this.state.location
+    }
+    let headers =  {'Authorization': "Bearer " + token,
+                      'username': usernameLocal};
+    axios.patch(url, null, {
+      headers:headers,
+      params:data
+    })
+    .then(res => {Swal.fire({
+      icon: 'success',
+      title: 'Success',
+      text: 'Profile Updated',
+    })
+    this.getAllengineer()})
+    .catch( err => Swal.fire({
+      icon: 'error',
+      title: 'error',
+      text: 'Update Failed',
+    })
+    )
 
+  }
+
+  
   componentDidMount() {
     console.log('Did Mount')
     this.getAllengineer();
@@ -179,9 +214,12 @@ class Home extends Component {
 
   
   render() {
-    const {nama,description,skills,role,location} = this.state
+    const {nama,skills,role} = this.state
     console.log('Render')
-
+    console.log(role)
+    if (role === 'engineer'){
+      this.logout()
+    }
     return (
     <div className='container-home'>
       <Navbar className='navbar-style'>
@@ -222,7 +260,7 @@ class Home extends Component {
             <img src={Bell} alt="Bell" className="nav-bell"/>
 
       </Navbar>
-      {!this.state.toggleProfile ?
+      {!this.state.toggleProfile && role === 'company'?
       <div className='searching-type'>
           <input className='navbar-search-skill' type="text" name="search" placeholder="Search Skills"
               onKeyPress={({key, target}) => {
@@ -253,24 +291,34 @@ class Home extends Component {
       : <div className='searching-type'>
       </div> }
       <div className='card-container'>
-          {!this.state.toggleProfile ? this.state.engineersBeta.map((_,idx)=> <Cards key={idx} nama={this.state.engineersBeta[idx].Name} 
+          {!this.state.toggleProfile ? this.state.engineersBeta.map((_,idx)=> 
+            <Cards key={idx} idengineer={this.state.engineersBeta[idx].id} nama={this.state.engineersBeta[idx].Name} 
           skills={this.state.engineersBeta[idx].Skills} description={this.state.engineersBeta[idx].Description} />)
-          : <Profile nama={nama} description={description} skills={skills} role={role} location={location}/>}
+          : <Profile nama={this.state.companyBeta[0].Name} description={this.state.companyBeta[0].Description} skills={skills} role={role} location={this.state.companyBeta[0].Location}/>}
         {this.state.toggleProfile ?           
         <div className='crud-engineer'> 
+            <div>
+            <Form.Label className='update-company-text'>Company Profile</Form.Label></div>
             <Form.Label className='update-name-text'>Name</Form.Label>
-            <Form.Control className='update-name-control' type="text" placeholder={this.state.nama} />
+            <Form.Control className='update-name-control' type="text" defaultValue={this.state.nama} 
+                  onChange={ e => {this.setState({nama:e.target.value})
+                  console.log(e.target.value)}}/>
             <Form.Label className='update-description-text'>Description</Form.Label>
-            <Form.Control className='update-description-control' type="text" placeholder={this.state.description} />
+            <Form.Control className='update-description-control' as="textarea" rows="3" defaultValue={this.state.description} 
+                  onChange={ e => {this.setState({description:e.target.value})
+                  console.log(e.target.value)}}/>
             <Form.Label className='update-location-text'>Location</Form.Label>
-            <Form.Control className='update-location-control' type="text" placeholder={this.state.location} />
+            <Form.Control className='update-location-control' type="text" defaultValue={this.state.location} 
+                  onChange={ e => {this.setState({location:e.target.value})
+                  console.log(e.target.value)}}/>
             {this.state.role === 'engineer' ?
           <div>
             <Form.Label className='update-skills-text'>Skills</Form.Label>
             <Form.Control className='update-skills-control' type="text" placeholder='skills' />
           </div>
               : null}
-              <Button variant="outline-secondary" active >Update</Button>
+              <Button variant="outline-secondary" active 
+              onClick={e => {this.patchCompany()}}>Update</Button>
         </div>
           : null}
        </div> 

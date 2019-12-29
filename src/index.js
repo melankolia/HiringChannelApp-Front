@@ -7,6 +7,7 @@ import Register from './Component/Register.jsx';
 import Home from './Component/Home.jsx';
 import * as serviceWorker from './serviceWorker';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
+import Engineer from './Component/Engineer.jsx'
 
 const AppWithRoute = () => {
     return (
@@ -15,6 +16,7 @@ const AppWithRoute = () => {
             <Route path='/login' component={Login} />
             <Route path='/register' component={Register}/>
             <Route path='/home' component={Home}/>
+            <Route path='/engineer' component={Engineer}/>
         </Router>
     )
 }

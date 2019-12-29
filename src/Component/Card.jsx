@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import '../Styles/Cards.css'
 import check from '../Images/check.png';
 import star from '../Images/star.png';
-import {Link} from 'react-router-dom'
 
 class Cards extends Component {
 
@@ -19,7 +18,6 @@ render(){
     let randomBack = Math.floor(Math.random() * 6)
 
     return(
-        <Link to ='/Home'>
         <div className='card-style' style={{ backgroundImage: `url(${Background[randomBack]})` }} > 
             
             <div className='overlay-card'>
@@ -27,8 +25,9 @@ render(){
                     {this.props.nama}
                 </p>
                 <div className="text-card-description">
-                    <p className='text-description'>{this.props.description}
-                            </p>
+                    <p className='text-description'>
+                        {this.props.description}
+                    </p>
                     <div className = 'project-success'>
                         <img src={check} alt='check-ico'/>
                         <p className ='text-project'>
@@ -46,7 +45,6 @@ render(){
                     </p> 
             </div>
         </div>
-        </Link>
     )
     }
 }
