@@ -71,7 +71,9 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    align-self: center;
     justify-content: center;
+    width: 70%;
 }
 .crud-engineer-engineer{
     margin-left: 35px;
@@ -83,7 +85,7 @@
 }
 .update-name-text-engineer{
     padding-top: 9px;
-    font-size: 12pt;
+    font-size: 9pt;
     margin-bottom: 0px;
     color:black;
     font-weight: bold;
@@ -94,7 +96,7 @@
 }
 
 .update-description-text-engineer{
-    font-size: 12pt;
+    font-size: 9pt;
     margin-bottom: 0px;
     color:black;
     font-weight: bold;
@@ -104,7 +106,7 @@
     width: 20vw;
 }
 .update-location-text-engineer{
-    font-size: 12pt;
+    font-size: 9pt;
     margin-bottom: 0px;
     color:black;
     font-weight: bold;
@@ -246,24 +248,27 @@
     border-radius: 20px;
 }
 .project-list{
+    font-size: 16pt;
     font-weight: bold;
     padding-top: 9px;
 }
 .update-name-skills-engineer{
     padding-top: 9px;
-    font-size: 12pt;
-    margin-bottom: 10px;
+    font-size: 16pt;
+    margin-bottom: 16px;
     color:black;
     font-weight: bold;
 }
 .update-birthdate-text-engineer{
-    font-size: 12pt;
+    font-size: 9pt;
     margin-bottom: 0px;
     color:black;
     font-weight: bold;
 }
 .button-update-engineer{
+    width: 25%;
     margin-top: 20px;
+    margin:2px;
 }
 .skill-list{
     height: 35vh!important;
@@ -277,4 +282,55 @@
 }
 .delete-button{
     font-weight: bold;
+}
+.crud-engineer-projectlist{
+    padding-left: 15px!important;
+    margin-left: 10px;
+    padding-top: 12px!important;
+    padding: 40px;
+    width: 50vw;
+    border-radius: 20px;
+}
+.crud-engineer-profile{
+    display: flex;
+    flex-direction: column;
+    margin-left: 10px;
+    padding-top: 12px!important;
+    padding: 15px;
+    width: 30vw;
+    border-radius: 10px;
+    padding-left: 10px;
+    
+}
+.crud-engineer-skills{
+    margin-left: 35px;
+    padding-top: 12px!important;
+    padding: 15px;
+    width: 20vw;
+    border-radius: 20px;
+    box-shadow: 2px 2px 4px 2px rgba(0, 0, 0, 0.1);
+}
+.table-projectlist{
+    background-color: white;
+}
+.buttonacc{
+    border-radius: 30px;
+    border-color: seagreen;
+    background-color: seagreen;
+}
+.buttonrefuse{
+    background-color: #CA302D;
+    border-color: #CA302D;
+    border-radius:30px;
+}
+.Birthday{
+    width: 72%;
+    margin: 0 0 10px;
+    border-color: #DADADA 1px;
+    padding: 4px 12px;
+    
+}
+.button-place{
+    margin-top: 15px;
+    align-content: center;
 }
