@@ -8,6 +8,7 @@ import Home from "./Component/Home.jsx";
 import * as serviceWorker from "./serviceWorker";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import Engineer from "./Component/Engineer.jsx";
+import Details from "./Component/Details.jsx";
 
 const AppWithRoute = () => {
   return (
@@ -16,7 +17,8 @@ const AppWithRoute = () => {
       <Route path="/login" component={Login} />
       <Route path="/register" component={Register} />
       <Route path="/home" component={Home} />
-      <Route path="/engineer" component={Engineer} />
+      <Route path="/engineer" exact component={Engineer} />
+      <Route path="/engineer/detail" component={Details} />
     </Router>
   );
 };

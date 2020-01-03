@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import "../Styles/Cards.css";
 import check from "../Images/check.png";
 import star from "../Images/star.png";
+import "sweetalert2/src/sweetalert2.scss";
+import { Link } from "react-router-dom";
 
 class Cards extends Component {
   state = {
@@ -22,7 +24,37 @@ class Cards extends Component {
     ];
     let randomBack = Math.floor(Math.random() * 6);
 
-    return (
+    return this.props.role === "company" ? (
+      <Link
+        to={{
+          pathname: "/engineer/detail",
+          state: {
+            idengineer: this.props.idengineer,
+            idcompany: this.props.idcompany
+          }
+        }}
+      >
+        <div
+          className="card-style"
+          style={{ backgroundImage: `url(${Background[randomBack]})` }}
+        >
+          <div className="overlay-card">
+            <p className="text-card">{this.props.nama}</p>
+            <div className="text-card-description">
+              <p className="text-description">{this.props.description}</p>
+              <div className="project-success">
+                <img src={check} alt="check-ico" />
+                <p className="text-project">{totalProject} Project</p>
+                <img src={star} alt="star-ico" className="img-project" />
+                <p className="text-success">{totalSuccessRate}% Success Rate</p>
+              </div>
+            </div>
+
+            <p className="text-card-skills">Skills: {this.props.skills}</p>
+          </div>
+        </div>
+      </Link>
+    ) : (
       <div
         className="card-style"
         style={{ backgroundImage: `url(${Background[randomBack]})` }}

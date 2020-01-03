@@ -36,7 +36,8 @@ class Home extends Component {
       currentPage: "",
       valuePage: "1",
       totalPage: "",
-      link: ""
+      link: "",
+      Cards: false
     };
   }
 
@@ -52,7 +53,7 @@ class Home extends Component {
       toggleProfile: false
     });
   };
-  getAllengineer() {
+  getAllengineer = async () => {
     let usernameLocal = localStorage.getItem("username :");
     let token = localStorage.getItem("token :");
     let role = localStorage.getItem("role :");
@@ -72,7 +73,7 @@ class Home extends Component {
     };
     console.log(url[1]);
     // console.log("Constructor")
-    axios
+    await axios
       .get(url[0], config)
       // .then(item => console.log(item.data.response))
       .then(res => {
@@ -87,14 +88,14 @@ class Home extends Component {
           skills: res.data[0].Skills,
           role: role,
           currentPage: res.data[0].currentPage,
-          companyBeta: res.data
+          companyBeta: res.data[0]
         });
         console.log("Ini State id: " + this.state.id);
       })
 
       .catch(err => console.log(err));
 
-    axios
+    await axios
       .get(url[1], config)
       // .then(item => console.log(item.data.response))
       .then(res => {
@@ -107,8 +108,8 @@ class Home extends Component {
         console.log(this.state.totalPage);
       })
       .catch(err => console.log(err));
-  }
-  searching(Name, Skill) {
+  };
+  searching = async (Name, Skill) => {
     let usernameLocal = localStorage.getItem("username :");
     let token = localStorage.getItem("token :");
     // let role = localStorage.getItem('role :')
@@ -132,7 +133,7 @@ class Home extends Component {
     // console.log(config)
     // console.log("Constructor")
 
-    axios
+    await axios
       .get(url[0], config)
       // .then(item => console.log(item.data.response))
       .then(res => {
@@ -150,9 +151,9 @@ class Home extends Component {
       .catch(err => console.log(err));
     // console.log('constructor')
     // console.log(this.state.engineersBeta)
-  }
+  };
 
-  pagination(textPage) {
+  pagination = async textPage => {
     let usernameLocal = localStorage.getItem("username :");
     let token = localStorage.getItem("token :");
     let Page = 1;
@@ -177,7 +178,7 @@ class Home extends Component {
     // console.log(config)
     // console.log("Constructor")
 
-    axios
+    await axios
       .get(url[0], config)
       // .then(item => console.log(item.data.response))
       .then(res => {
@@ -192,8 +193,8 @@ class Home extends Component {
         // console.log(this.state.engineersBeta)
       })
       .catch(err => console.log(err));
-  }
-  patchCompany() {
+  };
+  patchCompany = async () => {
     let usernameLocal = localStorage.getItem("username :");
     let token = localStorage.getItem("token :");
     const url = "http://localhost:8000/api/company/" + parseInt(this.state.id);
@@ -203,7 +204,7 @@ class Home extends Component {
       Location: this.state.location
     };
     let headers = { Authorization: "Bearer " + token, username: usernameLocal };
-    axios
+    await axios
       .patch(url, null, {
         headers: headers,
         params: data
@@ -223,7 +224,7 @@ class Home extends Component {
           text: "Update Failed"
         })
       );
-  }
+  };
 
   componentDidMount() {
     console.log("Did Mount");
@@ -231,9 +232,10 @@ class Home extends Component {
   }
 
   render() {
-    const { nama, skills, role } = this.state;
+    const { skills, role } = this.state;
+    const { Name, Description, Location } = this.state.companyBeta;
     console.log("Render");
-    console.log(role);
+
     if (role === "engineer") {
       this.logout();
     }
@@ -261,7 +263,7 @@ class Home extends Component {
           </Link>
           <img src={Avatar} alt="Avatar" className="nav-avatar" />
 
-          <NavDropdown title={nama} id="nav-dropdown">
+          <NavDropdown title={Name || "Name"} id="nav-dropdown">
             <NavDropdown.Item
               onClick={e => {
                 this.setState({
@@ -348,19 +350,21 @@ class Home extends Component {
             this.state.engineersBeta.map((_, idx) => (
               <Cards
                 key={idx}
+                idcompany={this.state.id}
                 idengineer={this.state.engineersBeta[idx].id}
                 nama={this.state.engineersBeta[idx].Name}
                 skills={this.state.engineersBeta[idx].Skills}
                 description={this.state.engineersBeta[idx].Description}
+                role={role}
               />
             ))
           ) : (
             <Profile
-              nama={this.state.companyBeta[0].Name}
-              description={this.state.companyBeta[0].Description}
+              nama={Name}
+              description={Description}
               skills={skills}
               role={role}
-              location={this.state.companyBeta[0].Location}
+              location={Location}
             />
           )}
           {this.state.toggleProfile ? (
@@ -414,7 +418,8 @@ class Home extends Component {
                 </div>
               ) : null}
               <Button
-                variant="outline-secondary"
+                variant="success"
+                className="update-button"
                 active
                 onClick={e => {
                   this.patchCompany();

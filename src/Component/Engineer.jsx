@@ -57,7 +57,7 @@ class Engineer extends Component {
       toggleProfile: true
     });
   };
-  getAllengineer = () => {
+  getAllengineer = async () => {
     let usernameLocal = localStorage.getItem("username :");
     let token = localStorage.getItem("token :");
     let role = localStorage.getItem("role :");
@@ -74,14 +74,14 @@ class Engineer extends Component {
       headers: { Authorization: "Bearer " + token, username: usernameLocal }
     };
     // console.log("Constructor")
-    axios
+    await axios
       .get(url[0], config)
       // .then(item => console.log(item.data.response))
       .then(res => {
         // console.log(res.data[0].Skills)
         // console.log(token)
         let dateTemporary;
-        let Skills;
+        let Skills
         if (res.data[0].DateofBirth) {
           dateTemporary = res.data[0].DateofBirth.slice(0, 10);
         } else {
@@ -111,11 +111,11 @@ class Engineer extends Component {
 
       .catch(err => console.log(err));
 
-    axios
-      .get(url[1])
+    await axios
+      .get(url[1], { params: {id_engineer: this.state.id} })
       // .then(item => console.log(item.data.response))
       .then(res => {
-        console.log("getprojects :", res.data.data);
+        console.log("getprojects :", res.data.data, ' ',res.data.data.length);
         this.setState({
           projects: res.data.data
         });
@@ -125,7 +125,7 @@ class Engineer extends Component {
       })
       .catch(err => console.log(err));
   };
-  patchUser = () => {
+  patchUser = async () => {
     let usernameLocal = localStorage.getItem("username :");
     let token = localStorage.getItem("token :");
     const url = "http://localhost:8000/api/engineer/" + parseInt(this.state.id);
@@ -135,7 +135,7 @@ class Engineer extends Component {
       DateofBirth: this.state.dateofbirth
     };
     let headers = { Authorization: "Bearer " + token, username: usernameLocal };
-    axios
+    await axios
       .patch(url, null, {
         headers: headers,
         params: data
@@ -367,7 +367,7 @@ class Engineer extends Component {
                         <th>Company</th>
                         <th>Project</th>
                         <th>Status</th>
-                        <th>Button</th>
+                        <th>Action</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -376,34 +376,66 @@ class Engineer extends Component {
                           <td>{this.state.projects[idx].Name}</td>
                           <td>{this.state.projects[idx].name_project}</td>
                           <td>{this.state.projects[idx].status_engineer}</td>
+                          
+                          {this.state.projects[idx].status_engineer === "Received" ? 
                           <td>
-                            <Button
-                              variant="success"
-                              size="sm"
-                              onClick={e =>
-                                this.patchStatusProject(
-                                  idx,
-                                  "On Process",
-                                  "On Process"
-                                )
-                              }
-                            >
-                              Acc
-                            </Button>
-                            <Button
-                              variant="outline-danger"
-                              size="sm"
-                              onClick={e =>
-                                this.patchStatusProject(
-                                  idx,
-                                  "Declined",
-                                  "Declined"
-                                )
-                              }
-                            >
-                              Decline
-                            </Button>
-                          </td>
+                          <Button
+                            variant="success"
+                            size="sm"
+                            onClick={e =>
+                              this.patchStatusProject(
+                                idx,
+                                "On Process",
+                                "On Process"
+                              )
+                            }
+                          >
+                            Acc
+                          </Button>
+                          <Button
+                            variant="outline-danger"
+                            size="sm"
+                            onClick={e =>
+                              this.patchStatusProject(
+                                idx,
+                                "Declined",
+                                "Declined"
+                              )
+                            }
+                          >
+                            Decline
+                          </Button>
+                        </td> : this.state.projects[idx].status_engineer === "On Process" ? 
+                          <td>
+                          <Button
+                            variant="success"
+                            size="sm"
+                            onClick={e =>
+                              this.patchStatusProject(
+                                idx,
+                                "Completed",
+                                "Completed"
+                              )
+                            }
+                          >
+                            Send Project
+                          </Button>
+                          <Button
+                            variant="outline-danger"
+                            size="sm"
+                            onClick={e =>
+                              this.patchStatusProject(
+                                idx,
+                                "Abandoned",
+                                "Abandoned"
+                              )
+                            }
+                          >
+                            Decline
+                          </Button>
+                        </td> : <td/>}
+
+                          
                         </tr>
                       ))}
                     </tbody>
