@@ -11,13 +11,14 @@ A Website for company to scouting and hiring available Engineer based on prefere
 - git
 
 ## Technologies
-  Frontend
+
+### Frontend
 - ReactJS
 - HTML
 - CSS
 - React Bootstrap
   
-  Backend
+### Backend
 - Node.js
 - Express.js
 - MySQL
