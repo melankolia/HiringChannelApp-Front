@@ -73,13 +73,12 @@ class Engineer extends Component {
     const config = {
       headers: { Authorization: "Bearer " + token, username: usernameLocal }
     };
-    // console.log("Constructor")
+  
     await axios
       .get(url[0], config)
-      // .then(item => console.log(item.data.response))
+
       .then(res => {
-        // console.log(res.data[0].Skills)
-        // console.log(token)
+
         let dateTemporary;
         let Skills
         if (res.data[0].DateofBirth) {
@@ -104,24 +103,19 @@ class Engineer extends Component {
           dateofbirth: dateTemporary,
           response: res.data[0]
         });
-        console.log("Ini State id: " + this.state.id);
-        console.log("Date of Birth: " + this.state.dateofbirth);
-        console.log(this.state.response);
       })
 
       .catch(err => console.log(err));
 
     await axios
       .get(url[1], { params: {id_engineer: this.state.id} })
-      // .then(item => console.log(item.data.response))
+
       .then(res => {
-        console.log("getprojects :", res.data.data, ' ',res.data.data.length);
+
         this.setState({
           projects: res.data.data
         });
 
-        // console.log(res.data[0].Skills)
-        // console.log(token)
       })
       .catch(err => console.log(err));
   };
@@ -237,8 +231,7 @@ class Engineer extends Component {
   };
 
   patchStatusProject = (idx, status_project, status_engineer) => {
-    console.log(this.state.projects[idx].No);
-    console.log(status_project);
+
 
     const url =
       "http://localhost:8000/api/projects/" + this.state.projects[idx].No;
@@ -275,8 +268,7 @@ class Engineer extends Component {
   }
   render() {
     const { role } = this.state;
-    const { Name, Description, Location, Skills } = this.state.response;
-    console.log("THIS IS ENGINEEER");
+    const { Name, Description, Location, Skills, id } = this.state.response;
     return (
       <div className="container-home-engineer">
         <Navbar className="navbar-style-engineer">
@@ -346,6 +338,7 @@ class Engineer extends Component {
               skills={Skills}
               role={role}
               location={Location}
+              idengineer={id}
             />
           ) : (
             <Profile
@@ -354,6 +347,7 @@ class Engineer extends Component {
               skills={Skills}
               role={role}
               location={Location}
+              idengineer={id}
             />
           )}
           {this.state.toggleProfile ? (
@@ -373,7 +367,7 @@ class Engineer extends Component {
                     <tbody>
                       {this.state.projects.map((_, idx) => (
                         <tr key={idx}>
-                          <td>{this.state.projects[idx].Name}</td>
+                          <td>{this.state.projects[idx].CompanyName}</td>
                           <td>{this.state.projects[idx].name_project}</td>
                           <td>{this.state.projects[idx].status_engineer}</td>
                           

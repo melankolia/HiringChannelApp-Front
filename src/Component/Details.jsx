@@ -32,7 +32,6 @@ class Details extends Component {
       "http://localhost:8000/api/engineer/get/detail/" +
         this.props.location.state.idengineer
     ];
-    const data = {};
     await axios
       .get(url[0])
       .then(res => {
@@ -126,7 +125,7 @@ class Details extends Component {
           <p className="profile">Engineer Profile </p>
         </div>
         <div className="card-container-detail">
-          <Cards nama={Name} description={Description} skills={Skills} />
+          <Cards idengineer={this.props.location.state.idengineer} nama={Name} description={Description} skills={Skills} />
 
           <div className="crud-engineer-profile">
             <p className="update-name-text-engineer">Name</p>

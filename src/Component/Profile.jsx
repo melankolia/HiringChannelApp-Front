@@ -13,6 +13,7 @@ class Profile extends Component {
             description={this.props.description}
             skills={this.props.skills}
             role={this.props.role}
+            idengineer={this.props.idengineer}
           />
         ) : (
           <CardCompany

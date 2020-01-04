@@ -1,4 +1,4 @@
-import { Navbar, NavDropdown, Form, Button } from "react-bootstrap";
+import { Navbar, NavDropdown, Form, Button, Table } from "react-bootstrap";
 import React, { Component } from "react";
 import Swal from "sweetalert2/dist/sweetalert2.js";
 import "sweetalert2/src/sweetalert2.scss";
@@ -20,7 +20,7 @@ class Home extends Component {
       nama: "",
       engineersBeta: [],
       companyBeta: "",
-      toggleProfile: false,
+      toggleProfile: '1',
       description: "",
       skills: "",
       location: "",
@@ -37,7 +37,7 @@ class Home extends Component {
       valuePage: "1",
       totalPage: "",
       link: "",
-      Cards: false
+      projects:[]
     };
   }
 
@@ -48,9 +48,9 @@ class Home extends Component {
     });
     this.props.history.push("/login");
   };
-  toggleProfileFun = e => {
+  toggleProfileFun = toggle => {
     this.setState({
-      toggleProfile: false
+      toggleProfile: toggle
     });
   };
   getAllengineer = async () => {
@@ -65,21 +65,18 @@ class Home extends Component {
 
     const url = [
       "http://localhost:8000/api/" + role + "/get/" + usernameLocal,
-      `http://localhost:8000/api/engineer/search?${this.state.searchType}${this.state.valueName}${this.state.sorting}${this.state.searchSkills}${this.state.valueSkills}${this.state.limit}${this.state.valueLimit}${this.state.page}${Page}`
+      `http://localhost:8000/api/engineer/search?${this.state.searchType}${this.state.valueName}${this.state.sorting}${this.state.searchSkills}${this.state.valueSkills}${this.state.limit}${this.state.valueLimit}${this.state.page}${Page}`,
+      'http://localhost:8000/api/projects'
     ];
 
     const config = {
       headers: { Authorization: "Bearer " + token, username: usernameLocal }
     };
-    console.log(url[1]);
-    // console.log("Constructor")
+
     await axios
       .get(url[0], config)
-      // .then(item => console.log(item.data.response))
+
       .then(res => {
-        // console.log(res.data[0].Skills)
-        // console.log(token)
-        console.log(res.data);
         this.setState({
           id: res.data[0].id,
           nama: res.data[0].Name,
@@ -90,22 +87,28 @@ class Home extends Component {
           currentPage: res.data[0].currentPage,
           companyBeta: res.data[0]
         });
-        console.log("Ini State id: " + this.state.id);
       })
 
       .catch(err => console.log(err));
 
     await axios
       .get(url[1], config)
-      // .then(item => console.log(item.data.response))
       .then(res => {
         this.setState({
           engineersBeta: res.data.data.response,
           totalPage: res.data.data.totalpage,
           currentPage: res.data.data.currentPage
         });
-        console.log(this.state);
-        console.log(this.state.totalPage);
+      })
+      .catch(err => console.log(err));
+
+      await axios
+      .get(url[2], { params: {id_company: this.state.id} })
+      .then(res => {
+        this.setState({
+          projects: res.data.data
+        });
+
       })
       .catch(err => console.log(err));
   };
@@ -115,7 +118,7 @@ class Home extends Component {
     // let role = localStorage.getItem('role :')
     let searchName = Name || "";
     let searchSkill = Skill || "";
-    // console.log('searchName : ' + searchName + ' searchSkill : ' + searchSkill)
+
     console.log(
       `http://localhost:8000/api/engineer/search?${this.state.searchType}${searchName}${this.state.sorting}${this.state.searchSkills}${searchSkill}${this.state.limit}${this.state.valueLimit}${this.state.page}${this.state.valuePage}`
     );
@@ -130,27 +133,18 @@ class Home extends Component {
     const config = {
       headers: { Authorization: "Bearer " + token, username: usernameLocal }
     };
-    // console.log(config)
-    // console.log("Constructor")
 
     await axios
       .get(url[0], config)
-      // .then(item => console.log(item.data.response))
       .then(res => {
-        // console.log(res.data.data)
-        console.log(res.data.data.totalpage);
         this.setState({
           engineersBeta: res.data.data.response,
           totalPage: res.data.data.totalpage,
           currentPage: res.data.data.currentPage
         });
-        console.log(res.data.data.totalpage);
-        //console.log(res.data.data.response)
-        // console.log(this.state.engineersBeta)
+
       })
       .catch(err => console.log(err));
-    // console.log('constructor')
-    // console.log(this.state.engineersBeta)
   };
 
   pagination = async textPage => {
@@ -175,22 +169,15 @@ class Home extends Component {
     const config = {
       headers: { Authorization: "Bearer " + token, username: usernameLocal }
     };
-    // console.log(config)
-    // console.log("Constructor")
 
     await axios
       .get(url[0], config)
-      // .then(item => console.log(item.data.response))
       .then(res => {
-        // console.log(res.data.data)
-        // console.log(res.data.data.response)
+
         this.setState({
           engineersBeta: res.data.data.response,
           currentPage: res.data.data.currentPage
         });
-        console.log(res.data.data.arrayPage);
-        //console.log(res.data.data.response)
-        // console.log(this.state.engineersBeta)
       })
       .catch(err => console.log(err));
   };
@@ -257,7 +244,7 @@ class Home extends Component {
             }}
           ></input>
           <Link to="/home">
-            <Navbar.Text id="nav-text" onClick={e => this.toggleProfileFun(e)}>
+            <Navbar.Text id="nav-text" onClick={e => this.toggleProfileFun('1')}>
               Home
             </Navbar.Text>
           </Link>
@@ -265,13 +252,14 @@ class Home extends Component {
 
           <NavDropdown title={Name || "Name"} id="nav-dropdown">
             <NavDropdown.Item
-              onClick={e => {
-                this.setState({
-                  toggleProfile: true
-                });
-              }}
+              onClick={e => this.toggleProfileFun('2')}
             >
               Profile
+            </NavDropdown.Item>
+            <NavDropdown.Item
+              onClick={e => this.toggleProfileFun('3')}
+            >
+              Project Status
             </NavDropdown.Item>
             <NavDropdown.Divider />
             <NavDropdown.Item
@@ -287,7 +275,7 @@ class Home extends Component {
           <img src={Chat} alt="Chat" className="nav-chat" />
           <img src={Bell} alt="Bell" className="nav-bell" />
         </Navbar>
-        {!this.state.toggleProfile && role === "company" ? (
+        {this.state.toggleProfile === '1' && role === "company" ? (
           <div className="searching-type">
             <input
               className="navbar-search-skill"
@@ -346,7 +334,7 @@ class Home extends Component {
           <div className="searching-type"></div>
         )}
         <div className="card-container">
-          {!this.state.toggleProfile ? (
+          {this.state.toggleProfile === '1' ? (
             this.state.engineersBeta.map((_, idx) => (
               <Cards
                 key={idx}
@@ -358,7 +346,7 @@ class Home extends Component {
                 role={role}
               />
             ))
-          ) : (
+          ) : this.state.toggleProfile === '2' || this.state.toggleProfile === '3' ? (
             <Profile
               nama={Name}
               description={Description}
@@ -366,8 +354,8 @@ class Home extends Component {
               role={role}
               location={Location}
             />
-          )}
-          {this.state.toggleProfile ? (
+          ) : null }
+          {this.state.toggleProfile === '2' ? (
             <div className="crud-engineer">
               <div>
                 <Form.Label className="update-company-text">
@@ -407,16 +395,6 @@ class Home extends Component {
                   console.log(e.target.value);
                 }}
               />
-              {this.state.role === "engineer" ? (
-                <div>
-                  <Form.Label className="update-skills-text">Skills</Form.Label>
-                  <Form.Control
-                    className="update-skills-control"
-                    type="text"
-                    placeholder="skills"
-                  />
-                </div>
-              ) : null}
               <Button
                 variant="success"
                 className="update-button"
@@ -428,9 +406,31 @@ class Home extends Component {
                 Update
               </Button>
             </div>
-          ) : null}
+          ) : this.state.toggleProfile === '3' ? 
+          <div className="crud-engineer-projectlist">
+          <p className="project-list"> Project List </p>
+          <Table striped bordered hover size="sm" responsive>
+            <thead className="table-projectlist">
+              <tr>
+                <th>Engineer</th>
+                <th>Project</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {this.state.projects.map((_, idx) => (
+                <tr key={idx}>
+                  <td>{this.state.projects[idx].EngineerName}</td>
+                  <td>{this.state.projects[idx].name_project}</td>
+                  <td>{this.state.projects[idx].status_project}</td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
         </div>
-        {!this.state.toggleProfile ? (
+            : null}
+        </div>
+        {this.state.toggleProfile === '1' ? (
           <div className="page-section">
             <Button
               className="button-page"

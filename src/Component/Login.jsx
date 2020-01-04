@@ -32,13 +32,11 @@ class Login extends Component {
     axios
       .post("http://localhost:8000/auth/login", data)
       .then(res => {
-        console.log(res.data);
         if (res.data.status === 200) {
           this.setState({
             message: "Login success",
             token: res.data.token
           });
-          // console.log(this.state)
           Swal.fire({
             icon: "success",
             title: "Success",
@@ -48,7 +46,6 @@ class Login extends Component {
           this.setState({
             message: "Login Failed!"
           });
-          // console.log(this.state)
           Swal.fire({
             icon: "error",
             title: "Fail",
@@ -57,7 +54,6 @@ class Login extends Component {
         }
       })
       .catch(err => {
-        // console.log(this.state)
         this.setState({
           message: "Login Failed!"
         });
@@ -67,8 +63,6 @@ class Login extends Component {
   componentDidUpdate = res => {
     //dijalankan setelah ada data (state dan/atau props) yang berubah
     if (this.state.message === "Login success") {
-      // console.log(this.state)
-      // console.log(this.state.username)
       localStorage.setItem("username :", this.state.username);
       localStorage.setItem("token :", this.state.token);
       localStorage.setItem("role :", this.state.role);
@@ -78,16 +72,9 @@ class Login extends Component {
         this.props.history.push("/engineer");
       }
     }
-    // else if (this.state.message === "Login Failed!"){
-    //   this.setState({message:''})
-    //   this.props.history.push ('/login')
-
-    // }
-    // console.log(res)
   };
 
   render() {
-    // console.log(this.state)
     return (
       <Grid container>
         <Grid item xs={12} sm={7}>

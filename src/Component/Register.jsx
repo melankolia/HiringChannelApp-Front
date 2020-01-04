@@ -37,7 +37,6 @@ class Register extends Component {
           this.setState({
             message: "Register success"
           });
-          console.log(this.state);
           Swal.fire({
             icon: "success",
             title: "Success",
@@ -47,7 +46,6 @@ class Register extends Component {
           this.setState({
             message: "Register Failed!"
           });
-          console.log(this.state);
           Swal.fire({
             icon: "error",
             title: "error",
@@ -56,7 +54,6 @@ class Register extends Component {
         }
       })
       .catch(err => {
-        console.log(this.state);
         this.setState({
           message: "Register Failed!"
         });
