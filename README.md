@@ -6,10 +6,21 @@ A Website for company to scouting and hiring available Engineer based on prefere
 ---
 ## Tools
 - Vscode
-- MySQL
 - Postman
 - phpmyadmin
 - git
+
+## Technologies
+  Frontend
+- ReactJS
+- HTML
+- CSS
+- React Bootstrap
+  
+  Backend
+- Node.js
+- Express.js
+- MySQL
 
 ## Feature
 - Register User
